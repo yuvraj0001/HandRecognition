@@ -18,13 +18,21 @@ while True:
 
     if result.multi_hand_landmarks:
         for handLms in result.multi_hand_landmarks:
+            for id, lms in enumerate(handLms.landmark):
+                h, w, c = img.shape
+
+                print(id, lms.x*w, lms.y*h)
+
+                if id==0:
+                    cv2.circle(img, ())
+  
             mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS)
 
 
     ctime = time.time()
     fps = 1/(ctime-ptime)
     ptime = ctime
-    print(fps)
+    # print(fps)
 
     cv2.putText(img, f'FPS : {int(fps)}', (40, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (255,0,0), 3)
     cv2.imshow("Image", img)
